@@ -35,6 +35,10 @@ try {
 			staticTexts.add({staticLabel:"With applied Paragraph style:"});
 			var find_paragraph_style = dropdowns.add({stringList:list_of_paragraph_styles, selectedIndex:0});
 		}
+    with(dialogRows.add()){
+			staticTexts.add({staticLabel:"With applied Character style:"});
+			var find_character_style = dropdowns.add({stringList:list_of_character_styles, selectedIndex:0});
+		}
 		with(dialogRows.add()){
 			staticTexts.add({staticLabel:"Change case to:"});
 			var change_case_to_text = dropdowns.add({stringList:["UPPERCASE","lowercase","Title Case","Sentence case"], selectedIndex:0});
@@ -64,7 +68,11 @@ function go(){
 	if (find_paragraph_style.selectedIndex == 0) {
 		var find_paragraph = false;
 	} else {
-		var find_paragraph = the_document.paragraphStyles.item(find_paragraph_style.selectedIndex-1);
+		var find_paragraph = the_document.paragraphStyles.item(find_paragraph_style.selectedIndex-1);}
+     if (find_character_style.selectedIndex == 0) {
+		var find_character = false;
+	} else {
+		var find_character = the_document.characterStyles.item(find_character_style.selectedIndex-1);   
 	}
 	
 	//Define change_case_to
@@ -91,6 +99,11 @@ function go(){
 		app.findGrepPreferences.appliedParagraphStyle = NothingEnum.nothing;
 	} else {
 		app.findGrepPreferences.appliedParagraphStyle = find_paragraph;
+	}
+if(find_character == false){
+		app.findGrepPreferences.appliedCharacterStyle = NothingEnum.nothing;
+	} else {
+		app.findGrepPreferences.appliedCharacterStyle = find_character;
 	}
 	
 	// Search
